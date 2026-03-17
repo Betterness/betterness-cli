@@ -83,6 +83,10 @@ These options apply to all commands:
   - `health-profile update` — Update health profile questions (only provided fields are changed)
   - `health-profile reset-section` — Clear all answers in a section
   - `health-profile summary` — Human-readable summary of answered health profile questions
+- **[mcp](#mcp)** — MCP server integration for AI agents (Claude, Cursor, Windsurf)
+  - `mcp install` — Install Betterness MCP integration into an AI client
+  - `mcp uninstall` — Remove Betterness MCP integration from an AI client
+  - `mcp status` — Show MCP integration status across all supported clients
 
 ---
 
@@ -557,4 +561,61 @@ Human-readable summary of answered health profile questions
 | Option | Description |
 |--------|-------------|
 | `--section <acronym>` | Summarize a specific section only |
+
+## mcp
+
+MCP server integration for AI agents (Claude, Cursor, Windsurf)
+
+### `betterness mcp install`
+
+Install Betterness MCP integration into an AI client
+
+```bash
+betterness mcp install <client> [--scope <scope>] [--dry-run]
+```
+
+| Argument / Option | Description |
+|-------------------|-------------|
+| `<client>` | Client to configure: `claude`, `claude-code`, `cursor`, `windsurf` **(required)** |
+| `--scope <scope>` | Config scope: `global` or `project` (claude-code only, default: `global`) |
+| `--dry-run` | Print config without writing |
+
+**Behavior:**
+1. Resolves stored credentials (or `--api-key` override)
+2. Reads the client's config file (if it exists), merges `mcpServers.betterness` entry
+3. Backs up original file as `.bak`
+4. Writes updated config
+
+**Client config file locations:**
+
+| Client | macOS | Linux |
+|--------|-------|-------|
+| `claude` | `~/Library/Application Support/Claude/claude_desktop_config.json` | `~/.config/Claude/claude_desktop_config.json` |
+| `claude-code` (global) | `~/.claude/settings.json` | `~/.claude/settings.json` |
+| `claude-code` (project) | `.mcp.json` | `.mcp.json` |
+| `cursor` | `.cursor/mcp.json` | `.cursor/mcp.json` |
+| `windsurf` | `~/.codeium/windsurf/mcp_config.json` | `~/.codeium/windsurf/mcp_config.json` |
+
+### `betterness mcp uninstall`
+
+Remove Betterness MCP integration from an AI client
+
+```bash
+betterness mcp uninstall <client> [--scope <scope>]
+```
+
+| Argument / Option | Description |
+|-------------------|-------------|
+| `<client>` | Client to unconfigure: `claude`, `claude-code`, `cursor`, `windsurf` **(required)** |
+| `--scope <scope>` | Config scope: `global` or `project` (claude-code only, default: `global`) |
+
+### `betterness mcp status`
+
+Show MCP integration status across all supported clients. Scans all known config file paths and reports which clients have Betterness MCP configured.
+
+```bash
+betterness mcp status --json
+```
+
+Returns: `client`, `status`, `apiKey` (truncated), `configFile`
 
