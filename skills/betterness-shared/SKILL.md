@@ -17,22 +17,22 @@ This skill contains authentication, global flags, output formatting, and securit
 ### Setup
 
 ```bash
-# Interactive login (prompts for API key)
+# OAuth login (default) — opens browser
 betterness auth login
 
-# Login with explicit key
+# API key login
 betterness auth login --key <apiKey>
-
-# Login with custom API URL
-betterness auth login --key <apiKey> --url https://api.example.com
 ```
+
+Only one auth method is active at a time — logging in with one clears the other.
 
 ### Credential Resolution (priority order)
 
 1. `--api-key <key>` flag (highest priority)
 2. `BETTERNESS_API_KEY` environment variable
-3. Stored credentials in `~/.betterness/credentials.json`
-4. Error with exit code 2 if none found
+3. OAuth tokens from `~/.betterness/tokens.json` (auto-refreshed when expired)
+4. Stored API key from `~/.betterness/credentials.json`
+5. Error with exit code 2 if none found
 
 ### Verify
 
@@ -90,8 +90,11 @@ All errors are returned as JSON on stderr:
 | Code | Cause |
 |------|-------|
 | `AUTH_MISSING` | No credentials configured |
-| `AUTH_UNAUTHORIZED` | Invalid or expired API key (HTTP 401) |
+| `AUTH_UNAUTHORIZED` | Invalid or expired credentials (HTTP 401) |
 | `AUTH_FORBIDDEN` | Insufficient permissions (HTTP 403) |
+| `OAUTH_TIMEOUT` | OAuth login timed out (120s) |
+| `OAUTH_PORT_IN_USE` | Callback port busy (another login running?) |
+| `OAUTH_REFRESH_FAILED` | OAuth token refresh failed |
 | `HTTP_404` | Resource not found |
 | `HTTP_429` | Rate limited (auto-retried 3x with backoff) |
 | `VALIDATION_ERROR` | Invalid input or unexpected response shape |

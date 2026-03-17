@@ -1,7 +1,7 @@
 ---
 name: betterness-auth
-version: 1.0.0
-description: "Manage authentication — login, logout, and verify identity."
+version: 1.1.0
+description: "Manage authentication — OAuth login, API key login, logout, and verify identity."
 metadata:
   category: "service"
   requires:
@@ -20,27 +20,35 @@ betterness auth <command> [flags]
 
 ### `auth login`
 
-Save API key for authentication. Verifies the key by calling the user profile endpoint.
+Authenticate with Betterness. Uses OAuth by default (opens a browser window). Alternatively, use `--key` for API key authentication.
+
+Only one auth method is active at a time — logging in with one clears the other.
 
 ```bash
-# Interactive (prompts for key)
+# OAuth (default) — opens browser for secure login
 betterness auth login
 
-# Explicit key
-betterness auth login --key sk-abc123
-
-# Custom API URL
-betterness auth login --key sk-abc123 --url https://staging.betterness.com
+# API key
+betterness auth login --key bk_abc123
 ```
 
 | Option | Description |
 |--------|-------------|
-| `--key <apiKey>` | API key to save (prompts if omitted) |
-| `--url <apiUrl>` | Backend API URL |
+| `--key <apiKey>` | Use an API key instead of OAuth |
+
+**OAuth flow details:**
+- Opens a local callback server on port `19847`
+- Prints an Auth0 URL to open in the browser
+- Waits up to 120 seconds for authentication
+- Stores tokens in `~/.betterness/tokens.json` (auto-refreshed when expired)
+
+**API key flow:**
+- Verifies the key against the backend
+- Stores credentials in `~/.betterness/credentials.json`
 
 ### `auth logout`
 
-Remove stored credentials from `~/.betterness/credentials.json`.
+Remove all stored credentials (both OAuth tokens and API key).
 
 ```bash
 betterness auth logout
