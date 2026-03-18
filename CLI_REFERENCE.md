@@ -83,6 +83,8 @@ These options apply to all commands:
   - `health-profile update` — Update health profile questions (only provided fields are changed)
   - `health-profile reset-section` — Clear all answers in a section
   - `health-profile summary` — Human-readable summary of answered health profile questions
+- **[knowledge](#knowledge)** — Search the Betterness knowledge library
+  - `knowledge search` — Search Betterness-published knowledge (files and videos)
 - **[mcp](#mcp)** — MCP server integration for AI agents (Claude, Cursor, Windsurf)
   - `mcp install` — Install Betterness MCP integration into an AI client
   - `mcp uninstall` — Remove Betterness MCP integration from an AI client
@@ -561,6 +563,31 @@ Human-readable summary of answered health profile questions
 | Option | Description |
 |--------|-------------|
 | `--section <acronym>` | Summarize a specific section only |
+
+## knowledge
+
+Search the Betterness knowledge library
+
+### `betterness knowledge search`
+
+Search Betterness-published knowledge (files and videos). Uses OpenSearch full-text search on title and summary fields.
+
+| Option | Description |
+|--------|-------------|
+| `-s, --search <text>` | Full-text search query |
+| `--type <type>` | Filter by type: `FILE` or `VIDEO` (default: both) |
+| `--sort <method>` | Sort: `ASC`, `DESC`, `LATEST`, `OLDEST` (default: `LATEST`) |
+| `--page <n>` | Page number (0-indexed) (default: `0`) |
+| `--page-size <n>` | Results per page (default: `10`) |
+
+**Response fields:** `externalId`, `title`, `type`, `authors`, `score` (0-100), `date`, `url`, `coverImageUrl`, `reviewCount`
+
+**Examples:**
+```bash
+betterness knowledge search -s "nutrition" --json
+betterness knowledge search --type VIDEO --page-size 5
+betterness knowledge search --sort OLDEST --page 2
+```
 
 ## mcp
 
