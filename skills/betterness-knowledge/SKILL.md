@@ -29,8 +29,8 @@ betterness knowledge search -s "nutrition" --json
 # Only videos
 betterness knowledge search --type VIDEO --json
 
-# Only files, sorted A-Z
-betterness knowledge search --type FILE --sort ASC --json
+# Only documents, sorted A-Z
+betterness knowledge search --type DOCUMENT --sort ASC --json
 
 # Paginate results
 betterness knowledge search -s "sleep" --page 0 --page-size 5 --json
@@ -42,7 +42,7 @@ betterness knowledge search --sort OLDEST --json
 | Option | Description |
 |--------|-------------|
 | `-s, --search <text>` | Full-text search query |
-| `--type <type>` | `FILE` or `VIDEO` (default: both) |
+| `--type <type>` | `DOCUMENT` or `VIDEO` (default: both) |
 | `--sort <method>` | `ASC`, `DESC`, `LATEST`, `OLDEST` (default: `LATEST`) |
 | `--page <n>` | Page number, 0-indexed (default: 0) |
 | `--page-size <n>` | Results per page (default: 10) |

@@ -575,7 +575,7 @@ Search Betterness-published knowledge (files and videos). Uses OpenSearch full-t
 | Option | Description |
 |--------|-------------|
 | `-s, --search <text>` | Full-text search query |
-| `--type <type>` | Filter by type: `FILE` or `VIDEO` (default: both) |
+| `--type <type>` | Filter by type: `DOCUMENT` or `VIDEO` (default: both) |
 | `--sort <method>` | Sort: `ASC`, `DESC`, `LATEST`, `OLDEST` (default: `LATEST`) |
 | `--page <n>` | Page number (0-indexed) (default: `0`) |
 | `--page-size <n>` | Results per page (default: `10`) |
