@@ -1,8 +1,5 @@
 # Betterness CLI
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-F5C648)](LICENSE)
-[![Status: Beta](https://img.shields.io/badge/status-Beta-EF93F8)](https://betterness.ai)
-
 **Command-line interface for the Betterness health platform.** Query wearable data, biomarkers, lab results, and health intelligence from your terminal. Ideal for power users, scripts, cron jobs, and AI agent workflows.
 
 ---
@@ -134,7 +131,3 @@ The [`skills/`](skills/) directory contains modular skill definitions used by AI
 | Docs | [betterness.ai/docs](https://betterness.ai/docs) |
 | MCP Server | [github.com/Betterness/betterness-mcp](https://github.com/Betterness/betterness-mcp) |
 | Builders Portal | [betterness.ai/builders](https://betterness.ai/builders) |
-
-## License
-
-MIT — see [LICENSE](LICENSE) for details.
