@@ -1,8 +1,5 @@
 # Betterness CLI Reference
 
-> Auto-generated from command definitions — do not edit manually.
-> Run `npm run docs` in `modules/betterness-cli` to regenerate.
-
 Version: 1.4.2
 
 ## Global Options
