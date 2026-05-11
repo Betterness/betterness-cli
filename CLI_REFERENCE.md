@@ -44,7 +44,7 @@ These options apply to all commands:
   - `connected-devices apple-health-code` — Generate connection code for Apple HealthKit via Junction app
   - `connected-devices disconnect` — Disconnect a health device integration
 - **[lab-tests](#lab-tests)** — Available lab tests for ordering
-  - `lab-tests list` — List available lab tests with prices and included markers
+  - `lab-tests list` — List available lab tests purchasable in the user's confirmed US state (requires `--us-state`)
 - **[lab-records](#lab-records)** — Lab records — uploaded results and purchased test orders
   - `lab-records list` — List lab records (both uploaded results and lab orders)
   - `lab-records detail` — Get full detail of a lab record by external ID
@@ -275,10 +275,11 @@ Available lab tests for ordering
 
 ### `betterness lab-tests list`
 
-List available lab tests with prices and included markers
+List available lab tests purchasable in the user's confirmed US state. `--us-state` is required — lab availability and price are state-specific (NY/NJ have different catalogs than other states).
 
 | Option | Description |
 |--------|-------------|
+| `--us-state <code>` | **Required.** Two-letter US state code (e.g. `NY`, `NJ`, `FL`). |
 | `--query <text>` | Search by name or description |
 | `--popular` | Only show popular tests |
 | `--loinc-slug <slug>` | Filter by LOINC slug |
